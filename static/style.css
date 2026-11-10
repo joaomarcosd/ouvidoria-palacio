@@ -1,11 +1,16 @@
-body {
-    font-family: Arial, sans-serif;
+/* Configuração Global e Prevenção de Transbordamento Mobile */
+html, body {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Impede que a tela role para os lados no celular */
+    font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f6f8;
     color: #333;
 }
 
+/* Banner de Sucesso Fixo no Topo */
 .banner-sucesso {
     position: fixed;
     top: 0;
@@ -15,17 +20,18 @@ body {
     color: white;
     text-align: center;
     padding: 15px 10px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     z-index: 9999;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .hidden {
     display: none;
 }
 
+/* Cabeçalho */
 header {
     background: #103681;
     color: white;
@@ -36,10 +42,12 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    box-sizing: border-box;
 }
 
 .logo-img {
     height: 45px;
+    max-width: 100%;
     display: block;
 }
 
@@ -48,6 +56,7 @@ header nav ul {
     display: flex;
     gap: 15px;
     margin: 0;
+    padding: 0;
     align-items: center;
 }
 
@@ -55,6 +64,7 @@ header nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    font-size: 14px;
 }
 
 header nav a:hover {
@@ -66,6 +76,7 @@ header nav a:hover {
     padding: 6px 12px;
     border-radius: 4px;
     color: white !important;
+    white-space: nowrap;
 }
 
 .nav-logout {
@@ -75,11 +86,13 @@ header nav a:hover {
     color: white !important;
 }
 
+/* Topo Verde */
 .hero-verde {
     background-color: #41af03;
     color: #ffffff;
-    padding: 3rem 2rem;
+    padding: 2.5rem 1.5rem;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .hero-verde h1 {
@@ -88,7 +101,6 @@ header nav a:hover {
     color: #ffffff;
 }
 
-/* Fonte tamanho 21px para o texto do topo */
 .hero-intro {
     max-width: 850px;
     margin: 0 auto 1.5rem auto;
@@ -101,13 +113,15 @@ header nav a:hover {
     text-align: left;
     max-width: 750px;
     margin: 0 auto;
-    font-size: 1.05rem;
+    font-size: 1rem;
+    padding-left: 20px;
 }
 
 .hero-list li {
     margin-bottom: 8px;
 }
 
+/* Containers das Seções */
 .container {
     max-width: 900px;
     margin: 25px auto;
@@ -116,6 +130,7 @@ header nav a:hover {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     border-top: 4px solid #103681;
+    box-sizing: border-box;
 }
 
 .login-box {
@@ -166,6 +181,7 @@ header nav a:hover {
 
 .erro { color: #d9534f; font-weight: bold; margin-top: 10px; }
 
+/* Subseções expansíveis */
 .exemplo-item {
     background-color: #f8f9fa;
     border: 1px solid #e2e8f0;
@@ -186,12 +202,15 @@ header nav a:hover {
     color: #444;
 }
 
+/* Painel do Gestor (Tabela) */
 .admin-container {
     max-width: 1100px;
 }
 
 .table-responsive {
-    overflow-x: auto;
+    width: 100%;
+    overflow-x: auto; /* Permite rolar APENAS a tabela no celular se ela for muito larga */
+    -webkit-overflow-scrolling: touch;
 }
 
 .admin-table {
@@ -199,6 +218,7 @@ header nav a:hover {
     border-collapse: collapse;
     margin-top: 15px;
     font-size: 14px;
+    min-width: 600px; /* Garante estrutura limpa na tabela */
 }
 
 .admin-table th, .admin-table td {
@@ -219,4 +239,43 @@ header nav a:hover {
     border-radius: 4px;
     font-weight: bold;
     font-size: 12px;
+}
+
+/* =========================================================
+   REGRAS ESPECÍFICAS PARA TELAS DE CELULAR (MOBILE)
+   ========================================================= */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 12px;
+        text-align: center;
+    }
+
+    header nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    header nav a {
+        font-size: 13px;
+    }
+
+    .hero-verde {
+        padding: 2rem 1rem;
+    }
+
+    .hero-verde h1 {
+        font-size: 1.75rem;
+    }
+
+    .hero-intro {
+        font-size: 17px; /* Reduz levemente no celular para melhor leitura */
+    }
+
+    .container {
+        margin: 15px;
+        padding: 15px;
+    }
 }
