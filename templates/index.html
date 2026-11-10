@@ -8,59 +8,43 @@
 </head>
 <body>
 
-    <!-- Topo da página com navegação e acessibilidade -->
     <header role="banner">
-        <div class="logo">🛠️ Palácio das Ferramentas</div>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Palácio das Ferramentas Logo" class="logo-img">
+        </div>
         <nav role="navigation" aria-label="Navegação Principal">
             <ul>
                 <li><a href="#inicio">Início</a></li>
-                <li><a href="#tipos">Tipo de Denúncia</a></li>
+                <li><a href="#formulario-section">Registrar</a></li>
                 <li><a href="#ajuda">Ajuda</a></li>
                 <li><a href="#faq">FAQ</a></li>
+                <li><a href="/admin" class="nav-admin">Área do Gestor</a></li>
             </ul>
         </nav>
     </header>
 
     <main role="main">
-        <!-- Seção Início -->
         <section id="inicio" class="hero">
             <h1>Canal Oficial de Ouvidoria</h1>
             <p>Um espaço seguro, confidencial e acessível para relatos, denúncias e sugestões.</p>
         </section>
 
-        <!-- Seção Tipo de Denúncia (Botões de redirecionamento) -->
-        <section id="tipos" class="container">
-            <h2>Selecione o Tipo de Relato</h2>
-            <p>Clique em uma das opções abaixo para ir diretamente ao formulário:</p>
-
-            <div class="card-grid">
-                <button class="btn-tipo" onclick="selecionarTipo('Fraude ou Corrupção')">
-                    ⚠️ <h3>Fraude ou Corrupção</h3>
-                </button>
-                <button class="btn-tipo" onclick="selecionarTipo('Assédio ou Discriminação')">
-                    🛡️ <h3>Assédio / Discriminação</h3>
-                </button>
-                <button class="btn-tipo" onclick="selecionarTipo('Segurança no Trabalho')">
-                    🥽 <h3>Segurança no Trabalho</h3>
-                </button>
-                <button class="btn-tipo" onclick="selecionarTipo('Outras Reclamações/Elogios')">
-                    💬 <h3>Outros Relatos</h3>
-                </button>
-            </div>
-        </section>
-
-        <!-- Formulário de Ouvidoria -->
         <section id="formulario-section" class="container">
             <h2>Formulário de Registro</h2>
             <form id="formOuvidoria" aria-label="Formulário de Ouvidoria">
                 <div class="form-group">
-                    <label for="tipo">Tipo de Denúncia *</label>
+                    <label for="tipo">Tipo de Registro *</label>
                     <select id="tipo" required aria-required="true">
-                        <option value="">Selecione...</option>
-                        <option value="Fraude ou Corrupção">Fraude ou Corrupção</option>
-                        <option value="Assédio ou Discriminação">Assédio ou Discriminação</option>
-                        <option value="Segurança no Trabalho">Segurança no Trabalho</option>
-                        <option value="Outras Reclamações/Elogios">Outras Reclamações/Elogios</option>
+                        <option value="">Selecione o tipo de registro...</option>
+                        <option value="Atos de Corrupção, descumprimento de lei, ou regimento interno">Atos de Corrupção, descumprimento de lei, ou regimento interno</option>
+                        <option value="Assédio ou discriminação">Assédio ou discriminação</option>
+                        <option value="Vazamentos de informações ou dados adulterados">Vazamentos de informações ou dados adulterados</option>
+                        <option value="Risco de segurança">Risco de segurança</option>
+                        <option value="Reclamações de procedimentos">Reclamações de procedimentos</option>
+                        <option value="Solicitações de reparo na infraestrutura">Solicitações de reparo na infraestrutura</option>
+                        <option value="Problemas com sistemas ou aplicações">Problemas com sistemas ou aplicações</option>
+                        <option value="Sugestões gerais">Sugestões gerais</option>
+                        <option value="Outros">Outros</option>
                     </select>
                 </div>
 
@@ -90,26 +74,23 @@
             <div id="resposta-envio" role="alert" aria-live="polite"></div>
         </section>
 
-        <!-- Seção Ajuda -->
         <section id="ajuda" class="container">
             <h2>Ajuda</h2>
             <p>Seus relatos são tratados de forma totalmente confidencial pela comissão de ética do Palácio das Ferramentas.</p>
         </section>
 
-        <!-- Seção FAQ -->
         <section id="faq" class="container">
             <h2>Perguntas Frequentes (FAQ)</h2>
             <details>
-                <summary>Posso fazer uma denúncia anônima?</summary>
+                <summary>Posso fazer um registro anônimo?</summary>
                 <p>Sim! Basta deixar os campos de Nome e E-mail em branco.</p>
             </details>
             <details>
                 <summary>O que acontece após o envio?</summary>
-                <p>O relato é analisado por um comitê independente em até 5 dias úteis.</p>
+                <p>O relato é analisado pela gestão em até 5 dias úteis.</p>
             </details>
         </section>
     </main>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

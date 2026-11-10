@@ -3,7 +3,6 @@ import sqlite3
 
 app = Flask(__name__)
 
-# Função para criar o banco de dados SQLite automaticamente
 def init_db():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
@@ -21,15 +20,23 @@ def init_db():
     conn.commit()
     conn.close()
 
-# Inicializa o banco de dados ao subir o app
 init_db()
 
-# Rota principal (carrega a página do site)
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# API REST interna para receber e salvar os relatos
+# Rota para o painel interno dos gestores
+@app.route('/admin')
+def admin():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM denuncias ORDER BY data_envio DESC')
+    registros = cursor.fetchall()
+    conn.close()
+    return render_template('admin.html', registros=registros)
+
 @app.route('/api/denuncia', methods=['POST'])
 def salvar_denuncia():
     data = request.get_json()
@@ -45,7 +52,7 @@ def salvar_denuncia():
     conn.commit()
     conn.close()
 
-    return jsonify({"status": "sucesso", "mensagem": "Denúncia registrada com sucesso!"}), 201
+    return jsonify({"status": "sucesso", "mensagem": "Registro enviado com sucesso!"}), 201
 
 if __name__ == '__main__':
     app.run(debug=True)

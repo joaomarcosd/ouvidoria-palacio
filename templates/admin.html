@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Gestor - Palácio das Ferramentas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header role="banner">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Palácio das Ferramentas Logo" class="logo-img">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Voltar ao Site</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container admin-container">
+        <h2>Painel do Gestor - Registros Recebidos</h2>
+        <p>Abaixo estão todos os relatos, sugestões e denúncias enviados pelos funcionários:</p>
+
+        {% if registros %}
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data/Hora</th>
+                        <th>Tipo de Registro</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>CEP</th>
+                        <th>Mensagem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reg in registros %}
+                    <tr>
+                        <td>#{{ reg['id'] }}</td>
+                        <td>{{ reg['data_envio'] }}</td>
+                        <td><span class="badge">{{ reg['tipo'] }}</span></td>
+                        <td>{{ reg['nome'] or 'Anônimo' }}</td>
+                        <td>{{ reg['email'] or 'Não informado' }}</td>
+                        <td>{{ reg['cep'] or '-' }}</td>
+                        <td>{{ reg['mensagem'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="sem-registros">Nenhum registro encontrado no sistema até o momento.</p>
+        {% endif %}
+    </main>
+
+</body>
+</html>
