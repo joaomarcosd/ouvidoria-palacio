@@ -8,20 +8,21 @@
 </head>
 <body>
 
-    <header role="banner">
+    <header>
         <div class="logo">
             <img src="{{ url_for('static', filename='logo.png') }}" alt="Palácio das Ferramentas Logo" class="logo-img">
         </div>
         <nav>
             <ul>
-                <li><a href="/">Voltar ao Site</a></li>
+                <li><a href="/">Ir para o Site</a></li>
+                <li><a href="/logout" class="nav-logout">Sair</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="container admin-container">
         <h2>Painel do Gestor - Registros Recebidos</h2>
-        <p>Abaixo estão todos os relatos, sugestões e denúncias enviados pelos funcionários:</p>
+        <p>Abaixo estão todas as submissões enviadas pelo formulário de ouvidoria:</p>
 
         {% if registros %}
         <div class="table-responsive">

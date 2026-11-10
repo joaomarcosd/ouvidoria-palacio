@@ -8,33 +8,45 @@
 </head>
 <body>
 
+    <!-- Banner verde de sucesso no topo -->
+    <div id="banner-sucesso" class="banner-sucesso hidden">
+        Registro enviado com sucesso.
+    </div>
+
     <header role="banner">
         <div class="logo">
             <img src="{{ url_for('static', filename='logo.png') }}" alt="Palácio das Ferramentas Logo" class="logo-img">
         </div>
-        <nav role="navigation" aria-label="Navegação Principal">
+        <nav role="navigation">
             <ul>
                 <li><a href="#inicio">Início</a></li>
                 <li><a href="#formulario-section">Registrar</a></li>
-                <li><a href="#ajuda">Ajuda</a></li>
-                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#informacoes">Informações Adicionais</a></li>
+                <li><a href="#exemplos">Exemplos</a></li>
                 <li><a href="/admin" class="nav-admin">Área do Gestor</a></li>
             </ul>
         </nav>
     </header>
 
     <main role="main">
-        <section id="inicio" class="hero">
+        <section id="inicio" class="hero-verde">
             <h1>Canal Oficial de Ouvidoria</h1>
-            <p>Um espaço seguro, confidencial e acessível para relatos, denúncias e sugestões.</p>
+            <p class="hero-intro">
+                O Palácio das Ferramentas tem compromisso com a ética no trabalho e o bem-estar de seus colaboradores. Este canal deve ser utilizado para reportar as seguintes questões:
+            </p>
+            <ul class="hero-list">
+                <li>Suspeita de violação de leis ou condutas do regimento da empresa</li>
+                <li>Feedback positivo ou negativo de algum processo da empresa</li>
+                <li>Relatar mau-funcionamento de equipamentos, sistemas e infraestrutura</li>
+            </ul>
         </section>
 
         <section id="formulario-section" class="container">
             <h2>Formulário de Registro</h2>
-            <form id="formOuvidoria" aria-label="Formulário de Ouvidoria">
+            <form id="formOuvidoria">
                 <div class="form-group">
                     <label for="tipo">Tipo de Registro *</label>
-                    <select id="tipo" required aria-required="true">
+                    <select id="tipo" required>
                         <option value="">Selecione o tipo de registro...</option>
                         <option value="Atos de Corrupção, descumprimento de lei, ou regimento interno">Atos de Corrupção, descumprimento de lei, ou regimento interno</option>
                         <option value="Assédio ou discriminação">Assédio ou discriminação</option>
@@ -49,12 +61,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="nome">Nome (Opcional - Anônimo se vazio)</label>
+                    <label for="nome">Nome (Opcional)</label>
                     <input type="text" id="nome" placeholder="Seu nome completo">
                 </div>
 
                 <div class="form-group">
-                    <label for="cep">CEP (Preenchimento automático via API ViaCEP)</label>
+                    <label for="cep">CEP</label>
                     <input type="text" id="cep" placeholder="00000-000" maxlength="9">
                     <span id="endereco-info" class="info-text"></span>
                 </div>
@@ -66,31 +78,40 @@
 
                 <div class="form-group">
                     <label for="mensagem">Descrição Detalhada *</label>
-                    <textarea id="mensagem" rows="5" required aria-required="true" placeholder="Descreva os fatos com detalhes..."></textarea>
+                    <textarea id="mensagem" rows="5" required placeholder="Descreva os fatos com detalhes..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Enviar Registro</button>
             </form>
-            <div id="resposta-envio" role="alert" aria-live="polite"></div>
+            <div id="resposta-envio"></div>
         </section>
 
-        <section id="ajuda" class="container">
-            <h2>Ajuda</h2>
-            <p>Seus relatos são tratados de forma totalmente confidencial pela comissão de ética do Palácio das Ferramentas.</p>
+        <section id="informacoes" class="container">
+            <h2>Informações Adicionais</h2>
+            <p>Os relatos enviados em nosso canal de ouvidoria, que estejam relacionados a possíveis desvios de conduta, serão averiguados de forma adequada pela equipe de gestores.</p>
+            <p>Caso prefira, você também pode fazer a denúncia pelo telefone <strong>0800 725 0011</strong> e solicitar atendimento com uma atendente mulher.</p>
         </section>
 
-        <section id="faq" class="container">
-            <h2>Perguntas Frequentes (FAQ)</h2>
-            <details>
-                <summary>Posso fazer um registro anônimo?</summary>
-                <p>Sim! Basta deixar os campos de Nome e E-mail em branco.</p>
+        <section id="exemplos" class="container">
+            <h2>Exemplos</h2>
+            
+            <details class="exemplo-item">
+                <summary><strong>Registro de Assédio</strong></summary>
+                <p>O assédio engloba qualquer conduta inadequada, seja por palavras, ações ou gestos, que crie um ambiente hostil, intimidador, desrespeitoso ou humilhante, violando a dignidade e a integridade física ou psicológica de uma pessoa.</p>
             </details>
-            <details>
-                <summary>O que acontece após o envio?</summary>
-                <p>O relato é analisado pela gestão em até 5 dias úteis.</p>
+
+            <details class="exemplo-item">
+                <summary><strong>Registro de discriminação</strong></summary>
+                <p>É a exteriorização de preconceito, distinção, exclusão ou preferência sobre algo em razão dessa natureza, ou seja, de características pessoais que não interferem no exercício da função. Todo comportamento baseado nessas singularidades, que tenha por efeito destruir ou alterar a igualdade de oportunidade ou de tratamento em âmbito profissional, pode ser entendido como discriminação.</p>
+            </details>
+
+            <details class="exemplo-item">
+                <summary><strong>Registro de mau funcionamento de sistema</strong></summary>
+                <p>Caso algum sistema que você utilize não esteja funcionando corretamente, não esteja carregando, ou dê algum erro inesperado ou de acesso impedido, utilize esta categoria para que a equipe averigue o problema e resolva o mais rápido possível.</p>
             </details>
         </section>
     </main>
 
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

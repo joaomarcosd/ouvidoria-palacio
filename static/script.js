@@ -2,9 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('formOuvidoria');
     const inputCep = document.getElementById('cep');
     const enderecoInfo = document.getElementById('endereco-info');
+    const bannerSucesso = document.getElementById('banner-sucesso');
     const respostaEnvio = document.getElementById('resposta-envio');
 
-    // Integração com API ViaCEP (API Externa)
+    // API ViaCEP
     if (inputCep) {
         inputCep.addEventListener('blur', async () => {
             const cep = inputCep.value.replace(/\D/g, '');
@@ -24,53 +25,45 @@ document.addEventListener('DOMContentLoaded', () => {
                     enderecoInfo.textContent = 'Erro ao consultar CEP.';
                     enderecoInfo.style.color = 'red';
                 }
-            } else if (cep.length > 0) {
-                enderecoInfo.textContent = 'CEP inválido. Digite 8 números.';
-                enderecoInfo.style.color = 'red';
             }
         });
     }
 
-    // Envio do formulário via API REST (Flask)
+    // Envio do Formulário
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Pega os elementos do formulário
-            const tipoSelect = document.getElementById('tipo');
-            const nomeInput = document.getElementById('nome');
-            const emailInput = document.getElementById('email');
-            const mensagemInput = document.getElementById('mensagem');
-
-            // Prepara os dados JSON
             const payload = {
-                tipo: tipoSelect ? tipoSelect.value : '',
-                nome: nomeInput ? nomeInput.value : '',
-                email: emailInput ? emailInput.value : '',
+                tipo: document.getElementById('tipo').value,
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
                 cep: inputCep ? inputCep.value : '',
-                mensagem: mensagemInput ? mensagemInput.value : ''
+                mensagem: document.getElementById('mensagem').value
             };
-
-            respostaEnvio.textContent = 'Enviando registro...';
-            respostaEnvio.className = '';
 
             try {
                 const response = await fetch('/api/denuncia', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
-                const result = await response.json();
-
                 if (response.ok) {
-                    respostaEnvio.textContent = '✅ ' + result.mensagem;
-                    respostaEnvio.className = 'sucesso';
+                    // Exibe o banner verde no topo
+                    bannerSucesso.classList.remove('hidden');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                    // Esconde o banner após 5 segundos
+                    setTimeout(() => {
+                        bannerSucesso.classList.add('hidden');
+                    }, 5000);
+
                     form.reset();
                     if (enderecoInfo) enderecoInfo.textContent = '';
+                    if (respostaEnvio) respostaEnvio.textContent = '';
                 } else {
+                    const result = await response.json();
                     respostaEnvio.textContent = '❌ ' + (result.mensagem || 'Erro ao enviar registro.');
                     respostaEnvio.className = 'erro';
                 }
