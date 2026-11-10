@@ -6,7 +6,6 @@ body {
     color: #333;
 }
 
-/* Banner de Sucesso Fixo no Topo */
 .banner-sucesso {
     position: fixed;
     top: 0;
@@ -76,7 +75,6 @@ header nav a:hover {
     color: white !important;
 }
 
-/* Seção do topo com fundo verde e texto branco */
 .hero-verde {
     background-color: #41af03;
     color: #ffffff;
@@ -90,10 +88,12 @@ header nav a:hover {
     color: #ffffff;
 }
 
+/* Fonte tamanho 21px para o texto do topo */
 .hero-intro {
-    max-width: 800px;
+    max-width: 850px;
     margin: 0 auto 1.5rem auto;
-    font-size: 1.1rem;
+    font-size: 21px;
+    line-height: 1.5;
 }
 
 .hero-list {
@@ -165,9 +165,7 @@ header nav a:hover {
 }
 
 .erro { color: #d9534f; font-weight: bold; margin-top: 10px; }
-.info-text { font-size: 0.85rem; color: #666; }
 
-/* Subseções expansíveis */
 .exemplo-item {
     background-color: #f8f9fa;
     border: 1px solid #e2e8f0;
@@ -188,7 +186,6 @@ header nav a:hover {
     color: #444;
 }
 
-/* Tabela Admin */
 .admin-container {
     max-width: 1100px;
 }

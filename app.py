@@ -22,7 +22,7 @@ def init_db():
             tipo TEXT NOT NULL,
             nome TEXT,
             email TEXT,
-            cep TEXT,
+            local_trabalho TEXT,
             mensagem TEXT NOT NULL,
             data_envio DATETIME DEFAULT CURRENT_TIMESTAMP
         )
@@ -36,7 +36,6 @@ init_db()
 def home():
     return render_template('index.html')
 
-# Rota para o login do gestor
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     erro = None
@@ -54,7 +53,6 @@ def logout():
     session.pop('gestor_autenticado', None)
     return redirect(url_for('home'))
 
-# Rota protegida do painel do gestor
 @app.route('/admin')
 def admin():
     if not session.get('gestor_autenticado'):
@@ -76,9 +74,9 @@ def salvar_denuncia():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('''
-        INSERT INTO denuncias (tipo, nome, email, cep, mensagem)
+        INSERT INTO denuncias (tipo, nome, email, local_trabalho, mensagem)
         VALUES (?, ?, ?, ?, ?)
-    ''', (data.get('tipo'), data.get('nome'), data.get('email'), data.get('cep'), data.get('mensagem')))
+    ''', (data.get('tipo'), data.get('nome'), data.get('email'), data.get('local_trabalho'), data.get('mensagem')))
     conn.commit()
     conn.close()
 

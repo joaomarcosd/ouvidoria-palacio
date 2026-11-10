@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <!-- Banner verde de sucesso no topo -->
     <div id="banner-sucesso" class="banner-sucesso hidden">
         Registro enviado com sucesso.
     </div>
@@ -61,14 +60,20 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="nome">Nome (Opcional)</label>
-                    <input type="text" id="nome" placeholder="Seu nome completo">
+                    <label for="local_trabalho">Local de trabalho</label>
+                    <select id="local_trabalho">
+                        <option value="">Selecione o local de trabalho...</option>
+                        <option value="Loja 01 - Franca">Loja 01 - Franca</option>
+                        <option value="Loja 02 - Franca">Loja 02 - Franca</option>
+                        <option value="Loja 03 - Itu">Loja 03 - Itu</option>
+                        <option value="Loja 04 - São José do Rio Preto">Loja 04 - São José do Rio Preto</option>
+                        <option value="Centro de Distribuição - Franca">Centro de Distribuição - Franca</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="cep">CEP</label>
-                    <input type="text" id="cep" placeholder="00000-000" maxlength="9">
-                    <span id="endereco-info" class="info-text"></span>
+                    <label for="nome">Nome (Opcional)</label>
+                    <input type="text" id="nome" placeholder="Seu nome completo">
                 </div>
 
                 <div class="form-group">
