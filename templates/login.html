@@ -27,7 +27,7 @@
         <p class="erro">{{ erro }}</p>
         {% endif %}
 
-        <form method="POST" action="/login">
+        <form method="POST" action="{{ url_for('login') }}">
             <div class="form-group">
                 <label for="senha">Senha de Acesso</label>
                 <input type="password" id="senha" name="senha" required placeholder="Digite a senha...">

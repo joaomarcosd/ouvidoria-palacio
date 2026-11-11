@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso do Gestor - Palácio das Ferramentas</title>
+    <title>Painel do Gestor - Palácio das Ferramentas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -14,27 +14,59 @@
         </div>
         <nav>
             <ul>
-                <li><a href="/">Voltar ao Site</a></li>
+                <li><a href="/">Ir para o Site</a></li>
+                <li><a href="/logout" class="nav-logout">Sair</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="container login-box">
-        <h2>Área Restrita do Gestor</h2>
-        <p>Por favor, insira a senha de acesso para visualizar os registros.</p>
+    <main class="container admin-container">
+        <h2>Painel do Gestor - Registros Recebidos</h2>
+        <p>Abaixo estão todas as submissões enviadas pelo formulário de ouvidoria:</p>
 
-        {% if erro %}
-        <p class="erro">{{ erro }}</p>
+        {% if registros %}
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Data/Hora</th>
+                        <th>Tipo de Registro</th>
+                        <th>Local de Trabalho</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Mensagem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reg in registros %}
+                    {% set st = reg['status'] if reg['status'] else 'Pendente' %}
+                    <tr>
+                        <td>#{{ reg['id'] }}</td>
+                        <td>
+                            <select class="select-status status-{{ st | lower | replace(' ', '-') }}" data-id="{{ reg['id'] }}">
+                                <option value="Pendente" {% if st == 'Pendente' %}selected{% endif %}>Pendente</option>
+                                <option value="Em andamento" {% if st == 'Em andamento' %}selected{% endif %}>Em andamento</option>
+                                <option value="Concluído" {% if st == 'Concluído' %}selected{% endif %}>Concluído</option>
+                            </select>
+                        </td>
+                        <td>{{ reg['data_envio'] }}</td>
+                        <td><span class="badge">{{ reg['tipo'] }}</span></td>
+                        <td>{{ reg['local_trabalho'] or 'Não informado' }}</td>
+                        <td>{{ reg['nome'] or 'Anônimo' }}</td>
+                        <td>{{ reg['email'] or 'Não informado' }}</td>
+                        <td>{{ reg['mensagem'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="sem-registros">Nenhum registro encontrado no sistema até o momento.</p>
         {% endif %}
-
-        <form method="POST" action="/login">
-            <div class="form-group">
-                <label for="senha">Senha de Acesso</label>
-                <input type="password" id="senha" name="senha" required placeholder="Digite a senha...">
-            </div>
-            <button type="submit" class="btn-submit">Entrar no Painel</button>
-        </form>
     </main>
 
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

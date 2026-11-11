@@ -3,7 +3,13 @@ import sqlite3
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 
 app = Flask(__name__)
+
+# Chave secreta e configuracoes de sessao explicitas
 app.secret_key = 'palacio_ferramentas_segredo_2026'
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, 'database.db')
@@ -46,9 +52,11 @@ def home():
 def login():
     erro = None
     if request.method == 'POST':
-        senha = request.form.get('senha')
+        # strip() remove espacos acidentais no inicio ou fim da senha
+        senha = request.form.get('senha', '').strip()
         if senha == 'teste2026':
             session['gestor_autenticado'] = True
+            session.modified = True
             return redirect(url_for('admin'))
         else:
             erro = "Senha incorreta. Tente novamente."
@@ -56,7 +64,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('gestor_autenticado', None)
+    session.clear()
     return redirect(url_for('home'))
 
 @app.route('/admin')
