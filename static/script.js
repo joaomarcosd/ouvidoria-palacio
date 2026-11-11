@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Gerenciamento da troca de Status no Painel Admin
     const statusSelects = document.querySelectorAll('.select-status');
     statusSelects.forEach(select => {
         select.addEventListener('change', async (e) => {
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const registroId = targetSelect.getAttribute('data-id');
             const novoStatus = targetSelect.value;
 
-            // Atualiza as classes de cor do select
             targetSelect.className = 'select-status';
             if (novoStatus === 'Pendente') {
                 targetSelect.classList.add('status-pendente');
@@ -62,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 targetSelect.classList.add('status-concluído');
             }
 
-            // Envia para o Flask atualizar no banco SQLite
             try {
                 await fetch('/api/denuncia/status', {
                     method: 'POST',
