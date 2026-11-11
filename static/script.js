@@ -43,4 +43,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Gerenciamento da troca de Status no Painel Admin
+    const statusSelects = document.querySelectorAll('.select-status');
+    statusSelects.forEach(select => {
+        select.addEventListener('change', async (e) => {
+            const targetSelect = e.target;
+            const registroId = targetSelect.getAttribute('data-id');
+            const novoStatus = targetSelect.value;
+
+            // Atualiza as classes de cor do select
+            targetSelect.className = 'select-status';
+            if (novoStatus === 'Pendente') {
+                targetSelect.classList.add('status-pendente');
+            } else if (novoStatus === 'Em andamento') {
+                targetSelect.classList.add('status-em-andamento');
+            } else if (novoStatus === 'Concluído') {
+                targetSelect.classList.add('status-concluído');
+            }
+
+            // Envia para o Flask atualizar no banco SQLite
+            try {
+                await fetch('/api/denuncia/status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: registroId, status: novoStatus })
+                });
+            } catch (err) {
+                console.error("Erro ao atualizar status:", err);
+            }
+        });
+    });
 });

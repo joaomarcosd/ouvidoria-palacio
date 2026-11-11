@@ -30,6 +30,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Status</th>
                         <th>Data/Hora</th>
                         <th>Tipo de Registro</th>
                         <th>Local de Trabalho</th>
@@ -40,8 +41,16 @@
                 </thead>
                 <tbody>
                     {% for reg in registros %}
+                    {% set st = reg['status'] if reg['status'] else 'Pendente' %}
                     <tr>
                         <td>#{{ reg['id'] }}</td>
+                        <td>
+                            <select class="select-status status-{{ st | lower | replace(' ', '-') }}" data-id="{{ reg['id'] }}">
+                                <option value="Pendente" {% if st == 'Pendente' %}selected{% endif %}>Pendente</option>
+                                <option value="Em andamento" {% if st == 'Em andamento' %}selected{% endif %}>Em andamento</option>
+                                <option value="Concluído" {% if st == 'Concluído' %}selected{% endif %}>Concluído</option>
+                            </select>
+                        </td>
                         <td>{{ reg['data_envio'] }}</td>
                         <td><span class="badge">{{ reg['tipo'] }}</span></td>
                         <td>{{ reg['local_trabalho'] or 'Não informado' }}</td>
@@ -58,5 +67,6 @@
         {% endif %}
     </main>
 
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
